@@ -24,6 +24,16 @@ npm i -g @nestjs/cli
 ```
 docker-compose up -d
 ```
+6. Clone file __.env.template__ and rename the copy to __.env__
+7. Give value to the environment variables defined on ```.env```
+8. Execute command to start the app:
+```
+yarn start:prod
+```
+9. Populate the database with the seed:
+```
+http://localhost:3000/api/v2/seed
+```
 
 ##Used Stack
 * MongoDB
