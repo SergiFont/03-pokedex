@@ -11,3 +11,4 @@ services:
       MONGODB_DATABASE: nest-pokemon
     volumes:
       - ./mongo:/data/db
+# volumes, es para mantener la data de la base de datos

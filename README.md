@@ -38,3 +38,15 @@ http://localhost:3000/api/v2/seed
 ##Used Stack
 * MongoDB
 * Nest
+# Production Build
+1. Create file ```.env.prod```
+2. Complete the environment variables for the created file
+3. Build the new image
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
+# Run
+1. Run the image already created from the docker. Only use after it's shutdown, the production Build command already iniciate the server.
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up
+```

@@ -1,0 +1,36 @@
+
+FROM node:18-alpine3.15 
+# Imagen de la version de NODE en la que se basa para levantarla en el docker
+# Alpine es una versión muy ligera de Linux, con lo mínimo y necesario para levantar la imagen en el docker
+
+# 1. Set working directory
+RUN mkdir -p /var/www/pokedex
+#
+WORKDIR /var/www/pokedex
+
+# 2. Copiar el directorio y su contenido
+COPY . ./var/www/pokedex
+# En la línea de arriba, el primer punto indica la ubicación de origen (en este caso la raíz del proyecto), y lo siguiente indica 
+# la ubicación de destino (./var/www/pokedex). El comando indica copiar el origen y pegarlo en el destino especificado
+# El archivo `.dockerignore` contiene todas los archivos que no quiero que se copien.
+
+COPY package.json tsconfig.json tsconfig.build.json /var/www/pokedex/
+# Lo mismo, pero en este caso especifíco los archivos, y acto seguido la ubicación de destino
+RUN yarn install --prod
+# Comando para instalar todas las dependencias. Se puede especificar instalar solo las dependencias de producción `--prod`, por ejemplo
+RUN yarn build
+# Comando para ejecutar el script "build" especificado en el package.json. Compila la app en la carpeta de distribución
+
+# 3. Dar permiso para ejecutar la applicación
+RUN adduser --disabled-password pokeuser
+RUN chown -R pokeuser:pokeuser /var/www/pokedex
+USER pokeuser
+# Se crea un usuario con acceso solo al directorio especificado, y se indica su uso con USER.
+
+# 4. Limpiar el caché
+RUN yarn cache clean --force
+
+EXPOSE 3000
+
+CMD [ "yarn","start" ]
+# Comando para empezar a levantar el servidor de Nest

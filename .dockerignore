@@ -1,0 +1,8 @@
+
+
+dist/
+node_modules/
+.gitignore
+.git/
+Dockerfile-simple
+docker-compose.yaml
