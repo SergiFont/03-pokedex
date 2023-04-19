@@ -29,7 +29,7 @@ import { JoiValidationSchma } from './config/joi.validation';
     CommonModule,
 
     SeedModule,
-    
+
   ],
 })
 export class AppModule {}

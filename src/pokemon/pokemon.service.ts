@@ -1,6 +1,6 @@
 import { Model, isValidObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
@@ -37,11 +37,11 @@ export class PokemonService {
     }
   }
 
-  findAll(paginationDto: PaginationDto) {
+  async findAll(paginationDto: PaginationDto) {
 
     const { limit = this.defaultLimit, offset = 0} = paginationDto
 
-    return this.pokemonModel.find()
+    return await this.pokemonModel.find()
       .limit(limit)
       .skip(offset)
       .sort({
